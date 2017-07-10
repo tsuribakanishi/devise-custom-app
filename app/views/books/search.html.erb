@@ -1,0 +1,34 @@
+<%#= form_for(@books, url: search_books_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%#= f.text_field :book_name, class: 'form-control' %>
+  <%#= f.text_field :author, class: 'form-control' %>
+<%# end %>
+
+
+<% content_for(:title) do %>
+  図書検索
+<% end %>
+
+<%= search_form_for(@book, url: search_books_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>
+
+<%= render layout: 'shared/search_result_box' do %>
+  <table class="table table-list ">
+  <thead>
+    <tr>
+      <th>図書名</th>
+      <th>著者名</th>
+      <th>予約</th>
+    </tr>
+  </thead>
+  <% @books.each do |book| %>
+  <tbody>
+  <tr>
+    <td><%= book.book_name %></td>
+    <td><%= book.author %></td>
+    <td><%= link_to("予約", {:action => "edit_ticket"}, :class => 'modal') %></td>
+  </tr>
+  </tbody>
+<% end %>
+</table>
+<% end %>

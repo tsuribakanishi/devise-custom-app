@@ -1,0 +1,7 @@
+<% content_for(:title) do %>
+  図書検索
+<% end %>
+
+<%= search_form_for(@book, url: search_books_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>
