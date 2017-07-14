@@ -16,6 +16,25 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    @ticket = Ticket.find(params[:id])
+
+    #@books = Book.where(:user_id => current_user.id).all
+    strSql = "select book_id,count(book_id) as yoyaku_su from tickets
+              where user_id in(
+                               select user_id from tickets
+                               where book_id = ? and user_id <> ?
+                               group by user_id
+                               )
+              and book_id <> ?
+              group by book_id
+              order by count(book_id) desc"
+
+    @books = Book.find_by_sql([strSql,@ticket.book_id,@ticket.user_id,@ticket.book_id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @ticket }
+    end
   end
 
   # GET /tickets/new
@@ -46,12 +65,10 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        #format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        #format.json { render :show, status: :created, location: @ticket }
-        #render :action => "books/index"
-        #redirect_to :back
-        #redirect_to controller: 'books', action: 'index'
-        format.html { redirect_to controller: 'books', action: 'index', notice: 'Ticket was successfully created.' }
+        format.html { redirect_to @ticket, notice: '予約を受け付けました。' }
+        format.json { render :show, status: :created, location: @ticket }
+        
+        #format.html { redirect_to controller: 'books', action: 'index', notice: 'Ticket was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }

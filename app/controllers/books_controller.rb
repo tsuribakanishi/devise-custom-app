@@ -7,6 +7,10 @@ class BooksController < ApplicationController
     #@books = Book.all
     #@book = Search::Book.new
     @book = Book.search
+    strSql = "select book_id,count(book_id) as yoyaku_su from tickets
+              group by book_id
+              order by count(book_id) desc"
+    @popularbooks = Book.find_by_sql([strSql])
   end
 
   # GET /books/1
@@ -75,6 +79,13 @@ class BooksController < ApplicationController
       .result
       .order(book_name: :desc, author: :asc)
       .decorate
+
+    strSql = "select book_id,count(book_id) as yoyaku_su from tickets
+              group by book_id
+              order by count(book_id) desc"
+    @popularbooks = Book.find_by_sql([strSql])
+
+
   end
 
   

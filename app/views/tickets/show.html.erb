@@ -1,2 +1,46 @@
-<h1>Tickets#show</h1>
-<p>Find me in app/views/tickets/show.html.erb</p>
+<%= link_to "戻る", { :controller => :books, :action => :index }%>
+
+<h1></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>図書名</strong>
+  <%= Book.find(@ticket.book_id).book_name %>
+</p>
+
+<p>
+  <strong>著者名</strong>
+  <%= Book.find(@ticket.book_id).author %>
+</p>
+
+
+<h2>この本を借りた人は他にこんな本を借りています</h2>
+<table>
+  <thead>
+    <tr>
+      <th>図書名</th>
+      <th>著者名</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= Book.find(book.book_id).book_name %></td>
+        <td><%= Book.find(book.book_id).author %></td>
+        <td>
+            <% if not current_user.blank? %>
+            <%= link_to '予約受付', new_ticket_path(params: {book_id: book.book_id,user_id: current_user.id,user_email: current_user.email}) %>
+            <% end %>
+        </td>
+        <td><%#= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%#= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%#= link_to 'Edit', edit_book_path(@book) %> 
+<%#= link_to 'Back', books_path %>

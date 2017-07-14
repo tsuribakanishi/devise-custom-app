@@ -1,5 +1,7 @@
 <% if user_signed_in? %>
   <%= link_to('ログアウト', destroy_user_session_path, :method => :delete) %>
+  <%#= link_to('予約履歴', index_ticketRireki_path) %>
+  <%= link_to "予約履歴", { :controller => :ticket_rirekis, :action => :index }%>
 <% else %>
   <%= link_to('ログイン', new_user_session_path) %>
 <% end %>
