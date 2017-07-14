@@ -9,7 +9,8 @@ class BooksController < ApplicationController
     @book = Book.search
     strSql = "select book_id,count(book_id) as yoyaku_su from tickets
               group by book_id
-              order by count(book_id) desc"
+              order by count(book_id) desc
+              limit 5"
     @popularbooks = Book.find_by_sql([strSql])
   end
 
@@ -82,7 +83,8 @@ class BooksController < ApplicationController
 
     strSql = "select book_id,count(book_id) as yoyaku_su from tickets
               group by book_id
-              order by count(book_id) desc"
+              order by count(book_id) desc
+              limit 5"
     @popularbooks = Book.find_by_sql([strSql])
 
 
