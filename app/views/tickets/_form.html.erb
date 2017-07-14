@@ -1,0 +1,51 @@
+<%= form_for(ticket) do |f| %>
+  <% if ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+      <ul>
+      <% ticket.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%#= f.label :tiket_id %>
+    <%#= f.number_field :tiket_id %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :book_id %>
+    <%#= f.number_field :book_id %>
+    <%= f.hidden_field :book_id %>
+    <%= f.label '図書名' %>
+    <%= Book.find(ticket.book_id).book_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label '著者名' %>
+    <%= Book.find(ticket.book_id).author %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :user_id %>
+    <%#= f.number_field :user_id %>
+    <%= f.hidden_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :return_date %>
+    <%#= f.text_field :return_date %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :return_flg %>
+    <%#= f.number_field :return_flg %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "予約確定" %>
+  </div>
+<% end %>

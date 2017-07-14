@@ -26,7 +26,19 @@
   <tr>
     <td><%= book.book_name %></td>
     <td><%= book.author %></td>
-    <td><%= link_to("予約", {:action => "edit_ticket"}, :class => 'modal') %></td>
+    <td>
+         <%#= link_to("予約", {:action => "edit_ticket"}) %>
+        <%#= link_to '予約',  :controller => 'books', :action => 'edit_ticket' %>
+        <%#= link_to 'Edit', edit_ticket_book_path(@book) %>
+        <%#= link_to 'Edit', edit_ticket_path(@ticket) %>
+        <%#= link_to 'Edit', edit_ticket_path(book) %>
+        <%#= link_to '予約', new_ticket_path(params: { ticket: {user_email: current_user.email} }) %>
+        <% if not current_user.blank? %>
+        <%= link_to '予約受付', new_ticket_path(params: {book_id: book.id,user_id: current_user.id,user_email: current_user.email}) %>
+        <% end %>
+        <%#= link_to '予約', new_ticket_path(:book_id => book.id,:user_id => current_user.id,:user_email => current_user.email) %>
+        <%#= user_signed_in %>
+    </td>
   </tr>
   </tbody>
 <% end %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root to: "books#index"
+
   #resources :books
   devise_for :models
   devise_for :users
@@ -9,5 +12,8 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
+  resources :tickets
+  resources :ticket_rirekis
 
 end

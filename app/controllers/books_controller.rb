@@ -77,6 +77,23 @@ class BooksController < ApplicationController
       .decorate
   end
 
+  
+  def edit_ticket
+    
+    #render :layout => "modal"
+    
+  end
+
+  def update_comment
+    
+    #@d_audit_etc = DAuditEtc.find(params[:id])
+    #@d_audit_etc[:comment] = params[:comment]
+    #@d_audit_etc.save!
+    
+    #head :ok
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
